@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {renderIf} from '../../../lib/utils';
+import {Redirect} from 'react-router';
 
 export default class AuthForm extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class AuthForm extends React.Component {
       emailError: null,
       passwordError: null,
       error: null,
+      fireRedirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,45 +33,52 @@ export default class AuthForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let {username, email, password} = this.state;
-    this.props.onComplete({ username, email, password })
-      .then(() => this.setState({username: '', email: '', password: ''}))
+    this.props.onComplete({username, email, password})
+      .then(() => this.setState({fireRedirect: true, username: '', email: '', password: ''}))
       .catch(error => this.setState({error}));
   };
 
   render() {
+    const {fireRedirect} = this.state;
+
     return (
-      <form
-        className="auth-form"
-        onSubmit={this.handleSubmit}
-        noValidate>
+      <div>
+        <form
+          className="auth-form"
+          onSubmit={this.handleSubmit}
+          noValidate>
 
-        <input
-          type="text"
-          name="username"
-          placeholder="johnsmith1985"
-          pattern=""
-          value={this.state.username}
-          onChange={this.handleChange}/>
-        {renderIf(this.state.usernameError, <span className="tooltip">{this.state.usernameError}</span>)}
-
-        {renderIf(this.props.auth === 'signup',
           <input
-            type="email"
-            name="email"
-            placeholder="john.smith@example.com"
-            value={this.state.email}
+            type="text"
+            name="username"
+            placeholder="johnsmith1985"
+            pattern=""
+            value={this.state.username}
             onChange={this.handleChange}/>
-        )}
+          {renderIf(this.state.usernameError, <span className="tooltip">{this.state.usernameError}</span>)}
 
-        <input
-          type="password"
-          name="password"
-          placeholder="johnsmithrocksthehouse"
-          value={this.state.password}
-          onChange={this.handleChange}/>
+          {renderIf(this.props.auth === 'signup',
+            <input
+              type="email"
+              name="email"
+              placeholder="john.smith@example.com"
+              value={this.state.email}
+              onChange={this.handleChange}/>
+          )}
 
-        <button type="submit">{this.props.auth}</button>
-      </form>
+          <input
+            type="password"
+            name="password"
+            placeholder="johnsmithrocksthehouse"
+            value={this.state.password}
+            onChange={this.handleChange}/>
+
+          <button type="submit">{this.props.auth}</button>
+        </form>
+          {fireRedirect && (
+            <Redirect to='/content' />
+          )}
+      </div>
     );
   };
 };
