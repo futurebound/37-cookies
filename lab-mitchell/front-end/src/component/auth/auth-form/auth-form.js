@@ -34,7 +34,7 @@ export default class AuthForm extends React.Component {
     e.preventDefault();
     let {username, email, password} = this.state;
     this.props.onComplete({username, email, password})
-      .then(() => this.setState({fireRedirect: true, username: '', email: '', password: ''}))
+      .then(() => this.setState({fireRedirect: !this.state.fireRedirect, username: '', email: '', password: ''}))
       .catch(error => this.setState({error}));
   };
 
