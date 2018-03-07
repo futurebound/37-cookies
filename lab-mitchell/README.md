@@ -5,7 +5,21 @@
 **Version**: 1.0.0
 
 # Overview
+**Back End `.env`**
+```
+PORT=3000
+DEBUG=true
+CORS_ORIGINS=http://localhost:8080
+SECRET='Gregor and The Hound'
+MONGODB_URI=mongodb://localhost/lab36
+```
 
+**Front End `.dev.env`**
+```
+NODE_ENV='carrots'
+API_URL='http://localhost:3000'
+CDN_URL='/'
+```
 
 # Getting Started
 To get this application up and running, fork and/or clone this repository using the `git clone <git repository link>` command in your terminal. Next, run the `npm install` command, which will install all the necessary dependencies in the accompanying package.json file. If wanting to view tests, enter `npm install -D` into the command line. After those packages have installed, you can run `npm test` to explore the included tests and functionality of their respective solutions. You can open up the code in your favorite editor to explore/modify the code, see how the tests are structured, and create tests of your own if desired.
