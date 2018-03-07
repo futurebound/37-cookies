@@ -11,7 +11,7 @@ PORT=3000
 DEBUG=true
 CORS_ORIGINS=http://localhost:8080
 SECRET='Gregor and The Hound'
-MONGODB_URI=mongodb://localhost/lab36
+MONGODB_URI=mongodb://localhost/lab37
 ```
 
 **Front End `.dev.env`**
